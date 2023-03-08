@@ -1,1 +1,1 @@
-# jAVA algorithm
+# JAVA algorithm
