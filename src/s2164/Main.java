@@ -14,7 +14,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int n = Integer.parseInt(br.readLine());
-        Queue<Integer> deck = new LinkedList<>();
+        LinkedList<Integer> deck = new LinkedList<>();
 
         for (int i = 1; i <= n; i++) {
             deck.offer(i);
