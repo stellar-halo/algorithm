@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -21,13 +20,14 @@ public class Main {
             ArrayList<Integer> aMeasures = new ArrayList<>();
             getMeasures(a, aMeasures);
 
-            int leastCommonMultiple = a*b;
             for (int t : aMeasures) {
                 if (b % t == 0) {
                     b /= t;
-                    leastCommonMultiple /= t;
                 }
+                if(b == 1) break;
             }
+
+            int leastCommonMultiple = a*b;
             bw.write(leastCommonMultiple + "\n");
         }
         bw.flush();
