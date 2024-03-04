@@ -11,6 +11,18 @@ public class Main {
     static int dx[] = {-1, 1, 0, 0};
     static int dy[] = {0, 0, -1, 1};
 
+    static private class Point {
+        private int x;
+        private int y;
+        private int distance;
+
+        Point(int x, int y, int distance) {
+            this.x = x;
+            this.y = y;
+            this.distance = distance;
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -36,23 +48,23 @@ public class Main {
     }
 
     private static void bfs(int r, int c) {
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{r, c, 0});
+        Queue<Point> queue = new LinkedList<>();
+        queue.add(new Point(r, c, 0));
         visited[r][c] = true;
 
         while (!queue.isEmpty()) {
-            int temp[] = queue.poll();
+            Point temp = queue.poll();
             for (int i = 0; i < 4; i++) {
-                int x = temp[0] + dx[i];
-                int y = temp[1] + dy[i];
+                int x = temp.x + dx[i];
+                int y = temp.y + dy[i];
 
                 if (x >= 0 && x < 5 && y >= 0 && y < 5 && !visited[x][y] && board[x][y] != -1) {
                     if (board[x][y] == 1) {
-                        result = temp[2] + 1;
+                        result = temp.distance + 1;
                         break;
                     }
                     visited[x][y] = true;
-                    queue.add(new int[]{x, y, temp[2] + 1});
+                    queue.add(new Point(x, y, temp.distance + 1));
                 }
             }
             if (result != -1)
