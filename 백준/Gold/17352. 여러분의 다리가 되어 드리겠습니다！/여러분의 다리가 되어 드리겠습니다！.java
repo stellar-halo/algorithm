@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
+/* 위상정렬로 풀었다가 실패한 이유
+-> 방향이 있는 그래프가 아니기 때문!!! */
+
 public class Main {
     static private int n, e, a, b, start;
     static private boolean[] visited;
