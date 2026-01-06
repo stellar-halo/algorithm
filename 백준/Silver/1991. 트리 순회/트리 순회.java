@@ -3,87 +3,59 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    static int ROOT = 0;
-    static int LEFT = 1;
-    static int RIGHT = 2;
+    static char[][] tree = new char[26][2];
 
     public static void main(String[] args) throws IOException {
-        String[][] tree = new String[26][3];
-        int[] visited = new int[26];
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
 
         for (int i = 0; i < N; i++) {
-            String[] tmp = br.readLine().split(" ");
-            int root = tmp[0].charAt(0) - 65;
-            for (int j = 0; j < 3; j++) {
-                tree[root][j] = tmp[j];
-            }
+            String[] input = br.readLine().split(" ");
+            int root = input[0].charAt(0) - 'A';
+            tree[root][0] = input[1].charAt(0);
+            tree[root][1] = input[2].charAt(0);
         }
 
-        //전위
-        System.out.println(preorder("A", tree));
-        //후위
-        System.out.println(inorder("A", tree));
-        //중위
-        System.out.println(postorder("A", tree));
+        StringBuilder sb = new StringBuilder();
 
+        // 전위 순회
+        preorder('A', sb);
+        sb.append('\n');
+
+        // 중위 순회
+        inorder('A', sb);
+        sb.append('\n');
+
+        // 후위 순회
+        postorder('A', sb);
+
+        System.out.println(sb);
     }
 
-    public static String preorder(String start, String[][] tree) {
-        char root = start.charAt(0);
-        int idx = (int) root - 65;
-        String left = tree[idx][LEFT];
-        String right = tree[idx][RIGHT];
+    // 전위: Root → Left → Right
+    static void preorder(char node, StringBuilder sb) {
+        if (node == '.') return;
 
-        if (!left.equals(".")) {
-            left = preorder(left, tree);
-        }else{
-            left = "";
-        }
-        if (!right.equals(".")) {
-            right = preorder(right, tree);
-        }else{
-            right = "";
-        }
-        return start + left + right;
+        sb.append(node);
+        preorder(tree[node - 'A'][0], sb);
+        preorder(tree[node - 'A'][1], sb);
     }
 
-    public static String inorder(String start, String[][] tree) {
-        char root = start.charAt(0);
-        int idx = (int) root - 65;
-        String left = tree[idx][LEFT];
-        String right = tree[idx][RIGHT];
+    // 중위: Left → Root → Right
+    static void inorder(char node, StringBuilder sb) {
+        if (node == '.') return;
 
-        if (!left.equals(".")) {
-            left = inorder(left, tree);
-        }else{
-            left = "";
-        }
-        if (!right.equals(".")) {
-            right = inorder(right, tree);
-        }else{
-            right = "";
-        }
-        return left + start + right;
+        inorder(tree[node - 'A'][0], sb);
+        sb.append(node);
+        inorder(tree[node - 'A'][1], sb);
     }
 
-    public static String postorder(String start, String[][] tree) {
-        char root = start.charAt(0);
-        int idx = (int) root - 65;
-        String left = tree[idx][LEFT];
-        String right = tree[idx][RIGHT];
+    // 후위: Left → Right → Root
+    static void postorder(char node, StringBuilder sb) {
+        if (node == '.') return;
 
-        if (!left.equals(".")) {
-            left = postorder(left, tree);
-        }else{
-            left = "";
-        }
-        if (!right.equals(".")) {
-            right = postorder(right, tree);
-        }else{
-            right = "";
-        }
-        return left + right + start;
+        postorder(tree[node - 'A'][0], sb);
+        postorder(tree[node - 'A'][1], sb);
+        sb.append(node);
     }
 }
