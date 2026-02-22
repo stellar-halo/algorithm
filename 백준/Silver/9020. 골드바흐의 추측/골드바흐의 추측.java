@@ -1,24 +1,24 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int T = Integer.parseInt(br.readLine());
-        ArrayList<Integer> decimals = new ArrayList<>();
+        boolean[] isDecimal = new boolean[10001];
+        Arrays.fill(isDecimal, true);
+        isDecimal[0] = isDecimal[1] = false;
 
-        for (int n = 2; n <= 100000; n++) {
-            boolean isDecimal = true;
+        for (int n = 2; n <= 10000; n++) {
             for (int d = 2; d < n; d++) {
                 if (n % d == 0) {
-                    isDecimal = false;
+                    isDecimal[n] = false;
                     break;
                 }
             }
-
-            if (isDecimal) decimals.add(n);
         }
 
         for (int t = 0; t < T; t++) {
@@ -29,7 +29,7 @@ public class Main {
             int mid = N / 2;
             int leftOver = N - mid;
 
-            while (!decimals.contains(mid) || !decimals.contains(leftOver)) {
+            while (!isDecimal[mid] || !isDecimal[leftOver]) {
                 mid--;
                 leftOver++;
             }
