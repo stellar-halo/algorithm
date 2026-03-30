@@ -22,8 +22,8 @@ public class Main {
             price[n] = p;
         }
 
-        int min = Integer.MAX_VALUE;
-        int sum = 0;
+        long min = Long.MAX_VALUE;
+        long sum = 0;
 
         for (int n = 0; n < N - 1; n++) {
             if (price[n] < min) {
