@@ -14,9 +14,6 @@ class Solution {
         
         diff = (sum - target) / 2;
         
-        if((sum - target) % 2 != 0) return 0;
-        if((sum - target) < 0) return 0;
-        
         add(0, 0, numbers); 
         
 
